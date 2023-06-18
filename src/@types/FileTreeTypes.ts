@@ -13,8 +13,19 @@ export type FileTreeType = {
 
 export type FilesComponentType = {
 	data: FileType[];
+	openState?: OpenStateType[] | null
+	toggleOpenState: (id: string) => void
 };
 
-export type FolderType = {
-	name: string;
-};
+
+export type FileComponentType = {
+	file: FileType,
+	onclick?: () => void
+	openState?: OpenStateType[] | null
+}
+
+export type OpenStateType = {
+	id: string
+	name: string
+	isOpen: boolean
+}

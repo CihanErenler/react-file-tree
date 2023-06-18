@@ -1,0 +1,38 @@
+.file-tree__folder-container {
+  height: 0;
+  transition: all 0.5s cubic-bezier(0.11, 1.02, 1, 1);
+  overflow: hidden;
+}
+
+.file-tree__row-container {
+  padding: 0 6px;
+}
+
+.file-tree__row-container:hover {
+  background-color: #f1f5f8;
+}
+
+.file-tree__folder,
+.file-tree__file {
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+}
+
+.file-tree__file-name {
+  margin-left: 4px;
+}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.arrow-icon {
+  transition: all 0.5s cubic-bezier(0.11, 1.02, 1, 1);
+}
+
+.arrow-icon.rotate {
+  transform: rotate(90deg);
+}

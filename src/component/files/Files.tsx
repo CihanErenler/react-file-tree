@@ -1,28 +1,62 @@
-import { FilesComponentType, FileType } from "../../@types/FileTreeTypes";
+import { useEffect, useState, useRef } from "react"
+import { FilesComponentType, FileType, OpenStateType } from "../../@types/FileTreeTypes";
 import Folder from "./Folder";
+import File from "./File";
+import "./Files.css"
 
-const Files = ({ data }: FilesComponentType) => {
+type FilesContainerType = {
+	openState: OpenStateType[]
+	file: FileType
+	toggleOpenState: (id: string) => void
+}
+
+const FilesContainer = ({ openState, file, toggleOpenState }: FilesContainerType) => {
+	const filesContainer = useRef<null | HTMLSelectElement>(null)
+	const div = useRef<null | HTMLDivElement>(null)
+
+	useEffect(() => {
+
+		const foundItem = openState.find(item => item.id === file.id)
+		if (div.current && filesContainer.current) {
+			if (foundItem?.isOpen) {
+				const height = div.current.getBoundingClientRect().height
+				filesContainer.current.style.height = height + "px"
+			} else {
+				filesContainer.current.style.height = "0px"
+			}
+		}
+	}, [openState])
+
+	return <section ref={filesContainer} className={`file-tree__folder-container`}>
+		<div ref={div}>
+			<Files data={file.subTree!} openState={openState} toggleOpenState={toggleOpenState} />
+		</div>
+	</section>
+}
+
+const Files = ({ data, openState, toggleOpenState }: FilesComponentType) => {
+
 	return (
-		<div>
-			{data.map((file) => {
+		<>
+			{openState && data.map((file) => {
 				return (
-					<section className="file-tree__row-container">
+					<section key={file.id}>
 						{file.isFolder ? (
-							<div className="file-tree__folder">
-								<span>+</span>
-								<span>{file.fileName}</span>
-								<Files data={file.subTree!} />
-							</div>
+							<>
+								<section className="file-tree__row-container" >
+									<Folder file={file} onclick={() => toggleOpenState(file.id)} openState={openState} />
+								</section>
+								< FilesContainer openState={openState} file={file} toggleOpenState={toggleOpenState} />
+							</>
 						) : (
-							<div className="file-tree__file">
-								<span>-</span>
-								<span>{file.fileName}</span>
-							</div>
+							<section className="file-tree__row-container">
+								<File file={file} />
+							</section>
 						)}
 					</section>
 				);
 			})}
-		</div>
+		</>
 	);
 };
 
