@@ -1,6 +1,13 @@
+.file-tree__title {
+  margin-left: 14px;
+  font-size: 16px;
+  color: #6e6e6e;
+  margin-bottom: 10px;
+}
+
 .file-tree__folder-container {
   height: 0;
-  transition: all 0.5s cubic-bezier(0.11, 1.02, 1, 1);
+  transition: all 0.3s cubic-bezier(0.11, 1.02, 1, 1);
   overflow: hidden;
 }
 

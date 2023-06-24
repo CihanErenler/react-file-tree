@@ -5,18 +5,11 @@ export type FileType = {
 	isFolder: boolean;
 	subTree?: FileType[];
 };
-
-export type FileTreeType = {
-	title: string;
-	files: FileType[];
-};
-
 export type FilesComponentType = {
 	data: FileType[];
 	openState?: OpenStateType[] | null
 	toggleOpenState: (id: string) => void
 };
-
 
 export type FileComponentType = {
 	file: FileType,
@@ -27,5 +20,12 @@ export type FileComponentType = {
 export type OpenStateType = {
 	id: string
 	name: string
-	isOpen: boolean
+	isOpen: boolean,
+	parent: OpenStateType | null
 }
+
+export type TreeContentType = {
+	files: FileType[];
+	setFiles: React.Dispatch<React.SetStateAction<FileType[] | []>>;
+	width?: number | string
+};
